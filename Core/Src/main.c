@@ -330,7 +330,7 @@ void StartDefaultTask(void *argument)
   /* Infinite loop */
   for(;;)
   {
-	/// Tạm dừng 0.5s
+	/// Tạm dừng 0.5s. Lưu ý: Bắt buộc phải có, cho dù thời gian đợi nhỏ
     osDelay(500);
     /// Đảo trạng thái Tắt/Bật đèn led LD3
     HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);
@@ -351,7 +351,7 @@ void StartMyTask(void *argument)
   /* Infinite loop */
   for(;;)
   {
-	/// Tạm dừng 0.7s
+	/// Tạm dừng 0.7s. Lưu ý: Bắt buộc phải có, cho dù thời gian đợi nhỏ
     osDelay(700);
     /// Đảo trạng thái Tắt/Bật đèn led L4;
     HAL_GPIO_TogglePin(LD4_GPIO_Port, LD4_Pin);
