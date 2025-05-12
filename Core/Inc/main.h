@@ -31,7 +31,8 @@ extern "C" {
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include <stdio.h>					// Để sử dụng chính xác hàm sprintf mà không bị warning với kiểu dữ liệu char *
+#include <string.h>					// Để sử dụng chính xác các hàm xử lý chuỗi mà không bị warning với kiểu dữ liệu char *
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/

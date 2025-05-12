@@ -319,7 +319,7 @@ static void MX_GPIO_Init(void)
 
 /* USER CODE BEGIN Header_StartDefaultTask */
 /**
-  * @brief  Function implementing the defaultTask thread.
+  * @brief  Hàm thực thi trong task mặc định của FreeRTOS, defaultTask thread.
   * @param  argument: Not used
   * @retval None
   */
@@ -330,14 +330,17 @@ void StartDefaultTask(void *argument)
   /* Infinite loop */
   for(;;)
   {
-    osDelay(1);
+	/// Tạm dừng 0.5s
+    osDelay(500);
+    /// Đảo trạng thái Tắt/Bật đèn led LD3
+    HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);
   }
   /* USER CODE END 5 */
 }
 
 /* USER CODE BEGIN Header_StartMyTask */
 /**
-* @brief Function implementing the myTask thread.
+* @brief Hàm thực thi bên trong Task mới, myTask thread.
 * @param argument: Not used
 * @retval None
 */
@@ -348,7 +351,12 @@ void StartMyTask(void *argument)
   /* Infinite loop */
   for(;;)
   {
-    osDelay(1);
+	/// Tạm dừng 0.7s
+    osDelay(700);
+    /// Đảo trạng thái Tắt/Bật đèn led L4;
+    HAL_GPIO_TogglePin(LD4_GPIO_Port, LD4_Pin);
+    /// Gửi thông báo về máy tính qua UART1
+    HAL_UART_Transmit(&huart1, "MyTask\n",7,10);
   }
   /* USER CODE END StartMyTask */
 }

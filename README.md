@@ -43,4 +43,34 @@ Sử dụng led sẵn có. Không thêm module phụ trợ.
       - Độ ưu tiên: osPriorityNormal
       - Tên hàm handler: StartMyTask
 
+7. Viết chương trình ở 2 hàm handler thuộc 2 task
+   - Handler của thread mặc định __DefaultTask__ của FreeRTOS
+
+   ```C
+   void StartDefaultTask(void *argument)
+   {
+      for(;;) {
+         osDelay(500);  /// Tạm dừng 0.5s
+         HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin); /// Đảo trạng thái Tắt/Bật đèn led LD3
+      }
+   }
+   ```
+
+   - Handler của thread mới đăng kí __myTask__ 
+  
+   ```C
+   void StartMyTask(void *argument)
+   {
+      for(;;) {
+         osDelay(700);  /// Tạm dừng 0.5s
+         HAL_GPIO_TogglePin(LD4_GPIO_Port, LD4_Pin); /// Đảo trạng thái Tắt/Bật đèn led LD4
+         HAL_UART_Transmit(&huart1, "MyTask\n",7,10); ///Báo về máy tính
+      }
+   }
+   ```
+
+
 ## Kết quả
+
+- Thông điệp trên Serial nhận được từ STM32. ![Kết quả thông điệp trên Serial nhận được](./assets/UART_STM2PC.png)
+- 2 đền nhấp nhay theo 2 chu kì khác nhau.
