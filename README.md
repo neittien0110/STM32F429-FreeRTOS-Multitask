@@ -35,5 +35,12 @@ Sử dụng led sẵn có. Không thêm module phụ trợ.
      ![TIM6 Enable](./assets/TIM_Enable.png)
    - __Prescaler = 89__, __Counter Period = 99__ để có tần số 10kHz. _Xem ảnh trên_.
      ![Prescaler và Counter](./assets/TIM_Prescaler_Counter_10k.png)
+6. Ở file __.ioc__,cấu hình __FreeRTOS__ để có thêm __Task__ mới, bênh cạnh __Task__ mặc định của hệ điều hành.
+   - Trong __Categories__, chọn __Middleware and Software Packs__, chọn __FREERTOS__. Trong cửa số bên phải __FREERTOS Mode and Configuration__ / phần __Mode__, hãy gán dropdownboax __Interface__ bằng __CMSIS_V2__.
+   ![Kích hoạt và Thêm Task mới](./assets/FreeRTOS_RegisterNewTask.png)
+   - Ở phần __Configuration__ bên dưới, chọn tab __Tasks and Queues__, bấm __Add__ và khai báo thêm một __Task__ mới như trong ảnh trên.
+      - Tên task: myTask
+      - Độ ưu tiên: osPriorityNormal
+      - Tên hàm handler: StartMyTask
 
 ## Kết quả
