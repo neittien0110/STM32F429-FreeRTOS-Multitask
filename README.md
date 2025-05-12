@@ -28,5 +28,7 @@ Sử dụng led sẵn có. Không thêm module phụ trợ.
     ![RCC Enable](./assets/RCCEnable.png)
    - Thiết lập __CPU Clock = 180MHz__.\
     ![Thiết lập CPU Clock](./assets/ClockConfigration_90MHz.png)
+4. Vẫn ở file __.ioc__, câu hình __USART1__ ở chế độ __Asynchronous__, tốc độ __baudrate = 115200 bps__.
+    ![cấu hình UART kiểu polling](./assets/UART_Enable_NoInterrupt.png)
 
 ## Kết quả
