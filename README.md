@@ -30,5 +30,10 @@ Sử dụng led sẵn có. Không thêm module phụ trợ.
     ![Thiết lập CPU Clock](./assets/ClockConfigration_90MHz.png)
 4. Vẫn ở file __.ioc__, câu hình __USART1__ ở chế độ __Asynchronous__, tốc độ __baudrate = 115200 bps__.
     ![cấu hình UART kiểu polling](./assets/UART_Enable_NoInterrupt.png)
+5. Vẫn ở file __.ioc__, câu hình timer 6__TIM6__ qua 3 bước như sau:
+   - Activate TIM6
+     ![TIM6 Enable](./assets/TIM_Enable.png)
+   - __Prescaler = 89__, __Counter Period = 99__ để có tần số 10kHz. _Xem ảnh trên_.
+     ![Prescaler và Counter](./assets/TIM_Prescaler_Counter_10k.png)
 
 ## Kết quả
