@@ -59,6 +59,13 @@ const osThreadAttr_t myTask_attributes = {
   .stack_size = 128 * 4,
   .priority = (osPriority_t) osPriorityNormal,
 };
+/* Definitions for myLowTask */
+osThreadId_t myLowTaskHandle;
+const osThreadAttr_t myLowTask_attributes = {
+  .name = "myLowTask",
+  .stack_size = 128 * 4,
+  .priority = (osPriority_t) osPriorityLow,
+};
 /* USER CODE BEGIN PV */
 
 /* USER CODE END PV */
@@ -70,6 +77,7 @@ static void MX_USART1_UART_Init(void);
 static void MX_TIM6_Init(void);
 void StartDefaultTask(void *argument);
 void StartMyTask(void *argument);
+void StartLowTask(void *argument);
 
 /* USER CODE BEGIN PFP */
 
@@ -140,6 +148,9 @@ int main(void)
 
   /* creation of myTask */
   myTaskHandle = osThreadNew(StartMyTask, NULL, &myTask_attributes);
+
+  /* creation of myLowTask */
+  myLowTaskHandle = osThreadNew(StartLowTask, NULL, &myLowTask_attributes);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -352,13 +363,35 @@ void StartMyTask(void *argument)
   for(;;)
   {
 	/// Tạm dừng 0.7s. Lưu ý: Bắt buộc phải có, cho dù thời gian đợi nhỏ
-    osDelay(700);
+    //osDelay(700);   // Hàm delay none-blocking
+	HAL_Delay(700);   // Hàm delay blocking, nên mới chiếm tài nguyên CPU, không để cho LowTask được thực thi
     /// Đảo trạng thái Tắt/Bật đèn led L4;
     HAL_GPIO_TogglePin(LD4_GPIO_Port, LD4_Pin);
     /// Gửi thông báo về máy tính qua UART1
     HAL_UART_Transmit(&huart1, "MyTask\n",7,10);
   }
   /* USER CODE END StartMyTask */
+}
+
+/* USER CODE BEGIN Header_StartLowTask */
+/**
+* @brief Function implementing the myLowTask thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_StartLowTask */
+void StartLowTask(void *argument)
+{
+  /* USER CODE BEGIN StartLowTask */
+  /* Infinite loop */
+  for(;;)
+  {
+	/// Tạm dừng 0.7s. Lưu ý: Bắt buộc phải có, cho dù thời gian đợi nhỏ
+	osDelay(700);
+	/// Gửi thông báo về máy tính qua UART1
+	HAL_UART_Transmit(&huart1, "LowTask\n",8,10);
+  }
+  /* USER CODE END StartLowTask */
 }
 
 /**

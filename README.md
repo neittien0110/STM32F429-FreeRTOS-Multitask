@@ -69,6 +69,14 @@ Sử dụng led sẵn có. Không thêm module phụ trợ.
    }
    ```
 
+8. Thêm task có độ ưu tiên thấp và sẽ không được chạy vì MyTask có độ ưu tiên cao hơn và sử dụng hàm đợi HAL_Delay  với none-blocking để chiếm thời gian.
+
+   | Feature | HAL_Delay | osDelay |
+   |--|--|--|
+   |Environment | Bare-metal | RTOS-based |
+   |Blocking | Yes | No |
+   |CPU | Usage Idle during delay | Executes other tasks |
+   |Precision | Depends on SysTick | Depends on RTOS tick |
 
 ## Kết quả
 
